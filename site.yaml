@@ -1,0 +1,52 @@
+---
+- name: Assert clickhouse role
+  hosts: clickhouse-server
+  roles:
+    - role: clickhouse
+      tags: clickhouse-server
+- name: Assert vector role
+  hosts: vector-server
+  roles:
+    - role: vector-role
+      tags: vector-server
+- name: Install lighthouse
+  hosts: lighthouse-server
+  handlers:
+    - name: Nginx reload
+      become: true
+      ansible.builtin.service:
+        name: nginx
+        state: restarted
+  pre_tasks:
+    - name: Lighthouse | Install git
+      become: true
+      ansible.builtin.apt:
+        name: git
+        state: present
+    - name: Update and upgrade apt packages
+      become: true
+      apt:
+        upgrade: yes
+        update_cache: yes
+        cache_valid_time: 86400 
+    - name: Lighhouse | Install nginx
+      become: true
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+    - name: Lighthouse | Apply nginx config
+      become: true
+      ansible.builtin.template:
+        src: nginx.conf.j2
+        dest: /etc/nginx/nginx.conf
+        mode: 0644
+  roles:
+    - lighthouse
+  post_tasks:
+    - name: Lighthouse | Apply config
+      become: true
+      ansible.builtin.template:
+        src: lighthouse_nginx.conf.j2
+        dest: /etc/nginx/conf.d/lighthouse.conf
+        mode: 0644
+      notify: Nginx reload

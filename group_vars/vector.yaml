@@ -1,0 +1,31 @@
+---
+vector_config:
+  sinks:
+      to_clickhouse:
+          auth:
+              password: logger
+              strategy: basic
+              user: logger
+          buffer:
+              max_events: 500
+              type: memory
+              when_full: block
+          compression: gzip
+          healthcheck: false
+          database: sample
+          encoding:
+              codec: default
+          endpoint: "http://10.130.0.5:8123"
+          inputs:
+            - sample_file
+          table: some_log
+          type: clickhouse
+  sources:
+      sample_file:
+          data_dir: /home/blade
+          ignore_older_secs: 600
+          include:
+            - /home/blade/log/*.log
+          read_from: beginning
+          type: file
+

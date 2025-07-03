@@ -1,0 +1,10 @@
+---
+clickhouse_listen_host:
+  - "::"
+clickhouse_users_custom:
+      - { name: "logger",
+          password: "logger",
+          networks: "{{ clickhouse_networks_default }}",
+          profile: "default",
+          quota: "default"
+        }

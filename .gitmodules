@@ -1,0 +1,6 @@
+[submodule "roles/vector-role"]
+	path = roles/vector-role
+	url = https://github.com/vladrabbit/vector-role
+[submodule "roles/lighthouse"]
+	path = roles/lighthouse
+	url = https://github.com/vladrabbit/lighthouse
