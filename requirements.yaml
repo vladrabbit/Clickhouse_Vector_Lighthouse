@@ -4,9 +4,9 @@
     scm: git
     version: "1.11.0"
   - name: vector-role
-    src: git@github.com:aragastmatb/vector_role.git
+    src: git@github.com:vladrabbit/vector-role.git
     scm: git
-    version: "main"
+    version: "1.0.0"
   - name: lighthouse
     src: git@github.com:vladrabbit/lighthouse.git
     scm: git

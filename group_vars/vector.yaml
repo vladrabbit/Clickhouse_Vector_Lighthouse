@@ -15,7 +15,7 @@ vector_config:
           database: sample
           encoding:
               codec: default
-          endpoint: "http://10.130.0.5:8123"
+          endpoint: "http://10.130.0.30:8123"
           inputs:
             - sample_file
           table: some_log
